@@ -3,80 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SaticShop | E-commerce</title>
-    <style>
-        /* Basic Styling taaki output Dwarkesh Enterprise jaisa dikhe */
-        body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; }
-        header { padding: 20px; border-bottom: 1px solid #ddd; }
-        nav a { margin: 0 15px; text-decoration: none; color: blue; }
-        .hero { padding: 50px 20px; }
-        .product-grid { display: flex; flex-direction: column; align-items: center; gap: 40px; padding: 20px; }
-        .product-card { max-width: 400px; width: 100%; }
-        .product-card img { width: 100%; border-radius: 8px; }
-        .price { font-size: 1.2rem; font-weight: bold; display: block; margin: 10px 0; }
-        button { padding: 10px 20px; cursor: pointer; background: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; }
-        footer { padding: 40px; background: #fff; }
-    </style>
+    <title>Day 12 | Reusable UI Components</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+<style>
+  :root {
+    --primary: #6C63FF;
+    --primary-dark: #534AB7;
+    --accent: #FF6B6B;
+    --text: #2D3436;
+    --text-muted: #636E72;
+    --bg: #FFFFFF;
+    --surface: #F8F9FA;
+    --border: #DFE6E9;
+    --font: 'Inter', sans-serif;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --space-xs: 6px;
+    --space-sm: 10px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 36px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font); }
+  body { color: var(--text); padding: 20px; background-color: #f0f2f5; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin: var(--space-xl) 0 var(--space-md);
+    padding-bottom: 6px;
+    border-bottom: 0.5px solid var(--border);
+  }
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm) var(--space-lg);
+    gap: var(--space-md);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+  .nav-logo { font-size: 18px; font-weight: 700; color: var(--primary); }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: var(--space-lg); list-style: none; }
+  .nav-links li a { font-size: 14px; text-decoration: none; color: var(--text-muted); transition: 0.2s; }
+  .nav-links li a:hover { color: var(--primary); }
+  
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .nav-icon-btn {
+    position: relative;
+    width: 36px; height: 36px;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: 0.2s;
+  }
+  .nav-icon-btn:hover { background: var(--surface); }
+  
+  .badge {
+    position: absolute;
+    top: -5px; right: -5px;
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    display: none;
+  }
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--space-lg);
+  }
+  .product-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
+  
+  .card-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+  }
+  .card-image img {
+    width: 100%; height: 100%; object-fit: cover;
+  }
+  
+  .tag {
+    position: absolute; top: 10px; left: 10px;
+    font-size: 11px; font-weight: 600;
+    padding: 4px 10px; border-radius: 20px;
+    z-index: 1;
+  }
+  .tag-sale { background: #FF6B6B; color: white; }
+  .tag-new { background: #51CF66; color: white; }
+
+  .card-body { padding: var(--space-md); }
+  .card-category { font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; }
+  .card-title { font-size: 15px; font-weight: 600; margin: 5px 0; height: 42px; overflow: hidden; }
+  
+  .card-footer {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-top: 15px; border-top: 1px solid var(--border); padding-top: 10px;
+  }
+  .price { font-size: 18px; font-weight: 700; color: var(--primary); 
+  }
+  .btn-base {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 14px; font-weight: 600; border-radius: var(--radius);
+    padding: 10px 20px; cursor: pointer; transition: 0.2s; border: none;
+  }
+  .btn-primary { background: var(--primary); color: white; }
+  .btn-primary:hover { background: var(--primary-dark); }
+  .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border); }
+  .btn-danger { background: #FFE3E3; color: #E03131; }
+  .btn-danger:hover { background: #E03131; color: white; }
+  
+  .btn-cart { 
+    background: var(--primary); color: white; width: 35px; height: 35px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    cursor: pointer; border: none; font-weight: bold;
+  }
+  .btn-cart:active { transform: scale(0.9); }
+
+  .wrapper { max-width: 1100px; margin: 0 auto; }
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>SaticShop</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Products</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
-    </header>
+<div class="wrapper">
+  
+  <p class="section-label">Navbar</p>
+  <nav class="navbar">
+    <div class="nav-logo">SATIC.ENTERPRICE<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#" style="color: var(--primary); font-weight: 700;">Home</a></li>
+      <li><a href="#">Products</a></li>
+      <li><a href="#">Collections</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-icon-btn" onclick="alert('Searching...')">&#128269;</div>
+      <div class="nav-icon-btn" onclick="alert('Added to Wishlist')">&#9825;</div>
+      <div class="nav-icon-btn">
+        &#128722;
+        <div class="badge" id="cart-count">0</div>
+      </div>
+      <div class="nav-icon-btn" style="background: #EEEDFE; font-weight: bold;">AJ</div>
+    </div>
+  </nav>
 
-    <section class="hero">
-        <h2>Satic Enterprise</h2>
-        <p>Discover high-quality gadgets and accessories for your daily tech needs.</p>
-        <button>Call Now: 9328517842</button>
-    </section>
+  <p class="section-label">Top Picks</p>
+  <div class="cards-grid">
 
-    <main>
-        <h2>Our Tech Collection</h2>
-        <div class="product-grid">
-
-            <article class="product-card">
-                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500" alt="Wireless Headphones">
-                <h3>Wireless Headphones</h3>
-                <span class="price">₹4,999</span>
-                <button>Buy Now</button>
-            </article>
-
-            <article class="product-card">
-                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Smart Watch">
-                <h3>Smart Watch</h3>
-                <span class="price">₹2,499</span>
-                <button>Buy Now</button>
-            </article>
-
-            <article class="product-card">
-                <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=500" alt="Gaming Mouse">
-                <h3>COMPUTER</h3>
-                <span class="price">₹1,50,000</span>
-                <button>Buy Now</button>
-            </article>
-
-            <article class="product-card">
-                <img src="https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500" alt="Mechanical Keyboard">
-                <h3>Mechanical Keyboard</h3>
-                <span class="price">₹3,799</span>
-                <button>Buy Now</button>
-            </article>
-
+    <div class="product-card">
+      <div class="card-image">
+        <span class="tag tag-sale">-20%</span>
+        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=500&q=80" alt="Headphones">
+      </div>
+      <div class="card-body">
+        <div class="card-category">Audio</div>
+        <div class="card-title">Wireless Noise-Cancelling Headphones</div>
+        <div class="card-footer">
+          <div><span class="price">₹4,000</span></div>
+          <button class="btn-cart" onclick="addToCart()">+</button>
         </div>
-    </main>
+      </div>
+    </div>
 
-    <footer>
-        <h2>Contact Us</h2>
-      <p>Email:<a href="mailto:patelharshit062007@gmail.com">
-patelharshit062007@gmail.com</a></p>
-        <p>Phone: 9328517842</p>
-    </footer>
+    <div class="product-card">
+      <div class="card-image">
+        <span class="tag tag-new">New</span>
+        <img src="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=500&q=80" alt="Camera">
+      </div>
+      <div class="card-body">
+        <div class="card-category">Camera</div>
+        <div class="card-title">Compact Mirrorless Camera Kit</div>
+        <div class="card-footer">
+          <div><span class="price">₹45,000</span></div>
+          <button class="btn-cart" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="card-image">
+        <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&w=500&q=80" alt="Watch">
+      </div>
+      <div class="card-body">
+        <div class="card-category">Accessories</div>
+        <div class="card-title">Premium Minimalist Wrist Watch</div>
+        <div class="card-footer">
+          <div><span class="price">₹5,000</span></div>
+          <button class="btn-cart" onclick="addToCart()">+</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="section-label">Interactive Buttons</p>
+  <div style="display:flex; flex-direction:column; gap: 16px; background: white; padding: 20px; border-radius: 12px;">
+    <div class="btn-row" style="display:flex; gap:10px;">
+        <button class="btn-base btn-primary" onclick="handleAction('Processing Order...')">Buy Now</button>
+        <button class="btn-base btn-secondary" onclick="handleAction('Item Saved!')">Save to List</button>
+        <button class="btn-base btn-danger" onclick="confirmDelete(this)">Delete Item</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+    
+    let count = 0;
+    function addToCart() {
+        count++;
+        const badge = document.getElementById('cart-count');
+        badge.innerText = count;
+        badge.style.display = 'block';
+        
+    
+        badge.style.transform = 'scale(1.5)';
+        setTimeout(() => { badge.style.transform = 'scale(1)'; }, 200);
+    }
+
+    
+    function handleAction(message) {
+        alert(message);
+    }
+
+    function confirmDelete(btn) {
+        if(confirm("Are you sure you want to remove this?")) {
+            btn.innerText = "Removed";
+            btn.style.opacity = "0.5";
+            btn.disabled = true;
+        }
+    }
+</script>
 
 </body>
 </html>

@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Glass E-commerce</title>
+<title>MyShop - Premium Glass UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -15,16 +17,21 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, #4f6df5, #7b8cff);
+  /* Premium Dark Purple/Night Blue Gradient */
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #1a1a2e);
+  background-attachment: fixed;
+  color: #e0e0e0; /* Off-white text for better readability */
 }
 
+/* Common Glassmorphism Effect - Slightly Darker for Premium Look */
 .glass {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.05); /* Very subtle white overlay */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
   border-radius: 15px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.1); /* Subtler border */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3); /* Darker shadow */
 }
-
 
 .navbar {
   margin: 20px;
@@ -32,7 +39,13 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: white;
+}
+
+.navbar h2 {
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  /* Gold highlight for brand name */
+  color: #f1c40f; 
 }
 
 .navbar ul {
@@ -41,144 +54,225 @@ body {
 }
 
 .navbar ul li {
-  margin-left: 20px;
+  margin-left: 25px;
   cursor: pointer;
-}
-
-/* HERO */
-.hero {
-  margin: 20px;
-  padding: 60px;
-  text-align: center;
+  transition: 0.3s;
   color: white;
 }
 
+.navbar ul li:hover {
+  /* Subtle gold hover effect */
+  color: #f39c12;
+}
+
+.hero {
+  margin: 20px;
+  padding: 70px 20px;
+  text-align: center;
+}
+
 .hero h1 {
-  font-size: 42px;
+  font-size: 2.8rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: white;
 }
 
 .hero p {
-  margin-top: 10px;
+  color: #bdc3c7;
 }
-
 
 .products {
   margin: 20px;
   padding: 30px;
+}
+
+.products h2 {
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: 600;
   color: white;
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
 }
 
-
 .card {
-  padding: 15px;
-  color: white;
-  transition: 0.3s;
+  position: relative;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03); /* Base card background */
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-10px);
+  /* Slight purple glow on hover */
+  background: rgba(103, 58, 183, 0.1); 
+  border: 1px solid rgba(255,255,255,0.2);
 }
 
 .card img {
   width: 100%;
+  height: 200px;
   border-radius: 10px;
-  height: 180px;
   object-fit: cover;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255,255,255,0.05); /* Image border */
+}
+
+.badge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  /* Gold badge background */
+  background: #f1c40f; 
+  color: #1a1a2e; /* Dark text on gold */
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  z-index: 10;
+  letter-spacing: 0.5px;
 }
 
 .card h3 {
-  margin: 10px 0;
+    color: white;
+    font-weight: 400;
+    font-size: 1.2rem;
+}
+
+.rating {
+  margin: 8px 0;
+  /* Premium Amber Rating Stars */
+  color: #f39c12; 
 }
 
 .price {
-  font-weight: bold;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 10px 0;
+  /* Deep Gold for Price */
+  color: #f1c40f; 
 }
 
 .btn {
-  display: block;
-  margin-top: 10px;
-  padding: 8px;
+  margin-top: auto;
+  padding: 12px;
   text-align: center;
-  background: rgba(255,255,255,0.25);
-  color: white;
-  border-radius: 6px;
+  background: rgba(255,255,255,0.05); /* Ghost button */
+  color: #bdc3c7;
+  border-radius: 8px;
   text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+  border: 1px solid rgba(255,255,255,0.1);
 }
 
+.btn:hover {
+  background: rgba(255,255,255,0.1);
+  color: white;
+}
+
+.cart-btn {
+  margin-top: 10px;
+  padding: 12px;
+  text-align: center;
+  /* Deep Gold Solid Button */
+  background: #f1c40f; 
+  color: #1a1a2e; /* Dark text on gold */
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.cart-btn:hover {
+  background: #f39c12; /* Darker Gold on hover */
+  transform: scale(1.02);
+}
 
 .footer {
   margin: 20px;
-  padding: 20px;
+  padding: 30px;
   text-align: center;
-  color: white;
+  color: #95a5a6;
+  font-size: 14px;
 }
 </style>
 
 </head>
 <body>
 
-
 <div class="navbar glass">
   <h2>MyShop</h2>
   <ul>
     <li>Home</li>
     <li>Products</li>
-    <li>Cart</li>
+    <li>Contact</li>
   </ul>
 </div>
 
-
 <div class="hero glass">
-  <h1>Glass E-commerce UI</h1>
-  <p>Modern premium design with glass effect</p>
+  <h1>Premium Glass UI</h1>
+  <p>Luxury shopping experience, refined design.</p>
 </div>
 
-
 <div class="products glass">
-  <h2>Our Products</h2>
+  <h2>Featured Collection</h2>
 
   <div class="product-grid">
 
     <div class="card glass">
-      <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
-      <h3>Smartphone</h3>
+      <span class="badge">20% OFF</span>
+      <img src="https://images.unsplash.com/photo-1598327105666-5b89351aff97?q=80&w=600" alt="Smartphone">
+      <h3>Flagship Smartphone</h3>
+      <div class="rating">⭐⭐⭐⭐☆</div>
       <p class="price">₹20,000</p>
-      <a href="#" class="btn">Buy Now</a>
+      <a href="#" class="btn">View Details</a>
+      <div class="cart-btn">Add to Cart</div>
     </div>
 
     <div class="card glass">
-      <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8">
-      <h3>Laptop</h3>
-      <p class="price">₹1,50,000</p>
-      <a href="#" class="btn">Buy Now</a>
+      <span class="badge">15% OFF</span>
+      <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?q=80&w=600" alt="Laptop">
+      <h3>Premium Laptop</h3>
+      <div class="rating">⭐⭐⭐⭐⭐</div>
+      <p class="price">₹80,000</p>
+      <a href="#" class="btn">View Details</a>
+      <div class="cart-btn">Add to Cart</div>
     </div>
 
     <div class="card glass">
-  <img src="https://images.pexels.com/photos/3394650/pexels-photo-3394650.jpeg">
-  <h3>Headphones</h3>
-  <p class="price">₹5,000</p>
-  <a href="#" class="btn">Buy Now</a>
-</div>
+      <span class="badge">10% OFF</span>
+      <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600" alt="Headphones">
+      <h3>Studio Headphones</h3>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <p class="price">₹5,000</p>
+      <a href="#" class="btn">View Details</a>
+      <div class="cart-btn">Add to Cart</div>
+    </div>
 
     <div class="card glass">
-  <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80">
-  <h3>Smart Watch</h3>
-  <p class="price">₹10,000</p>
-  <a href="#" class="btn">Buy Now</a>
-</div>
+      <span class="badge">25% OFF</span>
+      <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600" alt="Watch">
+      <h3>Luxury Smart Watch</h3>
+      <div class="rating">⭐⭐⭐⭐☆</div>
+      <p class="price">₹10,000</p>
+      <a href="#" class="btn">View Details</a>
+      <div class="cart-btn">Add to Cart</div>
+    </div>
 
   </div>
 </div>
 
 <div class="footer glass">
-  <p>© 2026 MyShop | Glass UI Design</p>
+  <p>© 2026 MyShop | Pure Elegance | Designed for Modern Web</p>
 </div>
 
 </body>
